@@ -16,12 +16,15 @@ def index():
 ##########################################################
 # CRIANDO O DATAFRAME
 df = pd.DataFrame({
-    'alunos': ['Renato', 'Fernando', 'Rodrigo', 'Ana', 'Joana', 'Silvio', 'Carolina'],
-    'notas': [15.00, 39.58, 62.92, 41.46, 48.33, 63.13, 70.00]
+    'Alunos': ['Renato', 'Fernando', 'Rodrigo', 'Ana', 'Joana', 'Silvio', 'Carolina'],
+    'Notas': [15.00, 39.58, 62.92, 41.46, 48.33, 63.13, 70.00]
 })
 
-# RENDERIZE OS VALORES DO DATAFRAME df EM UMA TABELA HTML DENTRO DA PÁGINA /table.html (CRIE UM HTML PARA ISSO)
+# RENDERIZE OS VALORES DO DATAFRAME df EM UMA TABELA HTML DENTRO DA PÁGINA /table.html
 @app.route('/table')
 def table():
-
-    return render_template('table.html', )
+    # COVERETE O DATAFRAME PARA HTML SEM COLOCÁ-LO EM UMA LISTA
+    table_html = df.to_html(classes='data', index=False)  # ADICIONA CLASSE E REMOVE O ÍNDICE
+    return render_template('table.html', table=table_html)  # ACESSA DIRETAMENTE A STRING HTML
+if __name__ == "__main__":
+    app.run(debug=True)
